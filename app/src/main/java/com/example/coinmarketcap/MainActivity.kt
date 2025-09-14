@@ -33,9 +33,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+//import coil.compose.rememberAsyncImagePainter
 
 
-// Defined colors based on the user's request
 val Background = Color(0xFF0B1020)
 val Surface = Color(0xFF151B2E)
 val TextMain = Color(0xFFE8ECF8)
@@ -59,6 +59,7 @@ class MainActivity : ComponentActivity() {
 fun HomeScreen() {
 
 
+
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = Background
@@ -69,7 +70,7 @@ fun HomeScreen() {
                 .padding(horizontal = 16.dp, vertical = 24.dp),
             horizontalAlignment = Alignment.Start
         ) {
-            // Header
+            // Header with title
             Text(
                 text = "CoinSphere",
                 color = TextMain,
@@ -78,9 +79,14 @@ fun HomeScreen() {
                 modifier = Modifier.padding(bottom = 16.dp)
             )
 
+            // Cards
+            InfoCard(title = "Global Market Cap", value = "$2.18T")
+            InfoCard(title = "Fear & Greed", value = "Neutral (54)")
+            InfoCard(title = "Altcoin Season", value = "No")
+
             Spacer(modifier = Modifier.height(24.dp))
 
-            //  Header de la lista !!
+            // List Header
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -93,19 +99,33 @@ fun HomeScreen() {
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            // Cryptocurrency List
+            // List Section
             LazyColumn(
                 modifier = Modifier.fillMaxWidth(),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
 
-                //aca van a ir ls items
-
-                }
             }
         }
     }
+}
 
+// card
+@Composable
+fun InfoCard(title: String, value: String) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 4.dp),
+        colors = CardDefaults.cardColors(containerColor = Surface),
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
+    ) {
+        Column(modifier = Modifier.padding(16.dp)) {
+            Text(text = title, color = TextDim, fontSize = 16.sp)
+            Text(text = value, color = TextMain, fontSize = 24.sp, fontWeight = FontWeight.SemiBold)
+        }
+    }
+}
 
 
 
@@ -117,36 +137,3 @@ fun DefaultPreview() {
         HomeScreen()
     }
 }
-//
-//class MainActivity : ComponentActivity() {
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        enableEdgeToEdge()
-//        setContent {
-//            CoinMarketCapTheme {
-//                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-//                    Greeting(
-//                        name = "Android",
-//                        modifier = Modifier.padding(innerPadding)
-//                    )
-//                }
-//            }
-//        }
-//    }
-//}
-//
-//@Composable
-//fun Greeting(name: String, modifier: Modifier = Modifier) {
-//    Text(
-//        text = "Hello $name!",
-//        modifier = modifier
-//    )
-//}
-//
-//@Preview(showBackground = true)
-//@Composable
-//fun GreetingPreview() {
-//    CoinMarketCapTheme {
-//        Greeting("Android")
-//    }
-//}
