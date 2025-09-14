@@ -2,7 +2,6 @@ package com.example.coinmarketcap
 
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
@@ -10,6 +9,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -17,7 +17,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -27,11 +26,10 @@ import coil3.compose.AsyncImage
 import coil3.compose.AsyncImagePainter
 import coil3.request.ImageRequest
 import com.example.coinmarketcap.ui.theme.CoinMarketCapTheme
-
-val Background = Color(0xFF0B1020)
-val Surface = Color(0xFF151B2E)
-val TextMain = Color(0xFFE8ECF8)
-val TextDim = Color(0xFF9AA3B2)
+import com.example.coinmarketcap.ui.theme.AppColors
+import com.example.coinmarketcap.ui.theme.AppColors.Background
+import com.example.coinmarketcap.ui.theme.AppColors.TextDim
+import com.example.coinmarketcap.ui.theme.AppColors.TextMain
 
 
 data class CryptoItem(
@@ -102,12 +100,19 @@ fun HomeScreen() {
                     .padding(horizontal = 8.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Text(text = "# Name", color = TextDim, fontSize = 14.sp)
-                Text(text = "Price", color = TextDim, fontSize = 14.sp)
+                Text(text = "#  Name", color = TextDim, fontSize = 14.sp, modifier = Modifier.weight(2f))
+                Text(text = "Price", color = TextDim, fontSize = 14.sp, modifier = Modifier.weight(1f))
             }
 
             Spacer(modifier = Modifier.height(8.dp))
-
+            //separador
+            Spacer(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(2.dp)
+                    .background(AppColors.Surface)
+            )
+            Spacer(modifier = Modifier.height(8.dp))
             // List Section
             LazyColumn(
                 modifier = Modifier.fillMaxWidth(),
@@ -128,7 +133,7 @@ fun InfoCard(title: String, value: String) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 4.dp),
-        colors = CardDefaults.cardColors(containerColor = Surface),
+        colors = CardDefaults.cardColors(containerColor = AppColors.Surface),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
@@ -137,27 +142,30 @@ fun InfoCard(title: String, value: String) {
         }
     }
 }
-
+//hola profe jijijijijijij
 //item
 @Composable
 fun CryptoItemRow(crypto: CryptoItem) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .clip(MaterialTheme.shapes.medium)
-            .padding(16.dp),
-        verticalAlignment = Alignment.CenterVertically
+            .background(AppColors.Surface, shape = RoundedCornerShape(14.dp))
+            //.clip(RoundedCornerShape(8.dp))
+            .padding(16.dp, vertical = 8.dp),
+        verticalAlignment = Alignment.CenterVertically,
+
     ) {
         Row(
             modifier = Modifier.weight(1f),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(16.dp)
+            horizontalArrangement = Arrangement.spacedBy(16.dp),
+
         ) {
             Text(
                 text = crypto.id.toString(),
                 color = TextDim,
-                fontWeight = FontWeight.Bold,
-                fontSize = 18.sp
+                fontWeight = FontWeight.SemiBold,
+                fontSize = 16.sp
             )
 
             AsyncImage(
